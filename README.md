@@ -1,4 +1,4 @@
-\# E-Commerce AI Insights
+# E-Commerce AI Insights
 
 
 
@@ -6,7 +6,7 @@ An AI-powered business intelligence tool for small e-commerce businesses.
 
 
 
-\## What it does
+## What it does
 
 Ingests sales data, runs statistical analysis, and generates plain-English insights 
 
@@ -14,19 +14,19 @@ using AI — so a business owner can understand what's working and what's losing
 
 
 
-\## Tech stack
+## Tech stack
 
-\- Python
+- Python
 
-\- pandas
+- pandas
 
-\- SQL
+- SQL
 
-\- OpenAI / Anthropic API (coming soon)
+- OpenAI / Anthropic API (coming soon)
 
 
 
-\## Project structure
+## Project structure
 
 ecommerce-ai-insights/
 
