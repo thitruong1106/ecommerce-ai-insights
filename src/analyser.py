@@ -56,3 +56,21 @@ def delivery_vs_reviews(master_table):
     }
 
     return summary
+
+#Product cat that have the worst customer sat
+
+def low_review_categories(product_table):
+    #return summary per category showing 
+    # total revenue, 
+    # average review score, 
+    # count of items sold 
+
+    df = product_table.copy()
+    summary = df.groupby('product_category_name_english').agg(
+        total_revenue = ('price','sum'),
+        avg_review_score = ('review_score', 'mean'),
+        count_of_sold_items = ('order_id', 'count')
+    ).sort_values('avg_review_score', ascending = True).reset_index() 
+    summary = summary[summary['count_of_sold_items'] > 100]
+    return summary 
+    
