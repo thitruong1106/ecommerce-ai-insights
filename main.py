@@ -1,6 +1,7 @@
 from src.loader import load_all_data
 from src.transformer import build_master_table
 from src.analyser import revenue_by_category, freight_ratio_by_category, delivery_vs_reviews, low_review_categories
+from src.visualiser import plot_revenue_by_category, plot_freight_ratio, plot_delivery_vs_review, plot_low_reviews_cat
 data = load_all_data()
 master = build_master_table(data)
 
@@ -38,3 +39,7 @@ but has below average reviews sitting at 3.9, with 11115 items sold. If customer
 """
 print(low_review_categories(product_table).head(10))
 
+plot_revenue_by_category(product_table)
+plot_freight_ratio(product_table)
+plot_delivery_vs_review(master_table)
+plot_low_reviews_cat(product_table)
