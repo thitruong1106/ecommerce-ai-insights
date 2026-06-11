@@ -6,6 +6,8 @@ data = load_all_data()
 master = build_master_table(data)
 
 from src.transformer import build_product_table
+from src.ai_insights import generate_insights
+
 master_table = build_master_table(data)
 product_table = build_product_table(data)
 print(product_table.shape)
@@ -43,3 +45,7 @@ plot_revenue_by_category(product_table)
 plot_freight_ratio(product_table)
 plot_delivery_vs_review(master_table)
 plot_low_reviews_cat(product_table)
+
+test = generate_insights("Total revenue is $13.5 million across 71 product categories. Health and beauty leads at $1.26 million. Office furniture has the lowest review score at 3.49 stars.")
+
+print(test)
