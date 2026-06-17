@@ -28,3 +28,22 @@ def generate_insights(analysis_results: str):
     )
 
     return response.content[0].text
+
+def format_analysis_for_ai(revenue, freight, delivery, low_reviews): 
+    summary = "=== REVENUE BY CATEGORY === \n"
+    summary += revenue.head(10).to_string()
+    summary += "\n\n"
+
+    summary += "=== FREIGHT COST ANALYSIS ===\n"
+    summary += freight.head(10).to_string()
+    summary += "\n\n"
+
+    summary += "=== DELIVERY VS REVIEW ANALYSIS ===\n"
+    summary += str(delivery)
+    summary += "\n\n"
+
+    summary += "=== LOW REVIEW ANALYSIS ===\n"
+    summary += low_reviews.head(10).to_string()
+    summary += "\n\n"
+
+    return summary
