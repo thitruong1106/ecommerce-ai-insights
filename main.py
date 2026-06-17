@@ -1,6 +1,6 @@
 from src.loader import load_all_data
 from src.transformer import build_master_table
-from src.analyser import revenue_by_category, freight_ratio_by_category, delivery_vs_reviews, low_review_categories
+from src.analyser import revenue_by_category, freight_ratio_by_category, delivery_vs_reviews, low_review_categories, validate_delivery_impact
 from src.visualiser import plot_revenue_by_category, plot_freight_ratio, plot_delivery_vs_review, plot_low_reviews_cat
 data = load_all_data()
 master = build_master_table(data)
@@ -59,8 +59,18 @@ analysis_summary = format_analysis_for_ai(
     low_reviews
 )
 
-#print(analysis_summary)
+print(analysis_summary)
 
-insights = generate_insights(analysis_summary)
+#insights = generate_insights(analysis_summary)
 
-print(insights)
+# print(insights)
+
+print(validate_delivery_impact(master_table))
+
+"""
+    p value near 0. less than 0.05. Reject Null. Accept alternative. Review scores arent happening by chance. 
+    Delivery date ontime/ delay has a real effect on review 
+
+    Late delivery scores average 2.2719366969602004 compared ot 4.29 for on time orders. 
+    A statstically signifcant difference validated by independent sample t-test. This isnt a pattern. its a proven relationship
+"""

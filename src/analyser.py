@@ -1,5 +1,6 @@
-import pandas as pd 
-
+import pandas as pd
+import datetime as dt 
+from scipy import stats
 """
     Take the master table as parameter 
     Ask one specific business question 
@@ -73,4 +74,54 @@ def low_review_categories(product_table):
     ).sort_values('avg_review_score', ascending = True).reset_index() 
     summary = summary[summary['count_of_sold_items'] > 100]
     return summary 
-    
+
+"""
+Makes a copy of the master table
+Calculates the delay in days — same as your delivery_vs_reviews function
+Splits into late orders and on-time/early orders
+Drops any rows where review_score is missing — the t-test will crash on missing values
+Runs the t-test comparing review scores between the two groups
+Returns a dictionary with the t-statistic, p-value, and whether it's significant (p < 0.05)
+"""
+def validate_delivery_impact(master_table):
+    #make a copy of master table 
+    df = master_table.copy()
+    # Caculate delays in days 
+    df['delay'] = (
+        pd.to_datetime(df['order_delivered_customer_date']) - 
+        pd.to_datetime(df['order_estimated_delivery_date'])
+    ).dt.days
+
+    #Split into late orders and on time orders 
+    late_order = df[df['delay'] > 0]
+    early_order_or_on_time = df[df['delay'] <= 0]
+
+    #drop any rows where review score is missing 
+
+    late_review = late_order.dropna(subset=['review_score'])
+    early_or_on_time_review = early_order_or_on_time.dropna(subset=['review_score'])
+
+    late_review = late_review['review_score']
+    early_or_on_time_review = early_or_on_time_review['review_score']
+    #run a t-test 
+    t_stat, p_value = stats.ttest_ind(late_review, early_or_on_time_review) 
+
+    significant = p_value < 0.05 
+
+    if significant: 
+        conclusion = "There is an effect on review score if an order arrived on time or late"
+    else:     
+        conclusion = "There is no effect on review score if an order arrived on time or late"
+
+    summary = {
+        "late_order_count": len(late_review),
+        "early_or_on_time_order_count": len(early_or_on_time_review),
+        "late_order_avg_review":  late_review.mean(), 
+        "early_or_on_time_avg_review": early_or_on_time_review.mean(),
+        "t_statistic": t_stat,
+        "p_value": p_value,
+        "significant": significant,
+        "conclusion": conclusion
+    } 
+
+    return summary 
