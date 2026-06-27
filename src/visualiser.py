@@ -14,9 +14,12 @@ def plot_revenue_by_category(product_table):
     ax.set_xlabel("Total Revenue")
     ax.set_ylabel("Category")
 
-    plt.tight_layout()
-    plt.savefig('docs/revenue_by_category.png', bbox_inches='tight', dpi=150)
-    plt.show()
+    fig.tight_layout()
+    fig.savefig('docs/revenue_by_category.png', bbox_inches='tight', dpi=150)
+    #plt.show()
+
+    #to run in streamlit 
+    return fig
 
 
 def plot_freight_ratio(product_table): 
@@ -33,9 +36,9 @@ def plot_freight_ratio(product_table):
     ax.set_xlabel("Freight")
     ax.set_ylabel("Category")
 
-    plt.tight_layout() 
-    plt.savefig('docs/freight_ratio.png', bbox_inches='tight', dpi=150)
-    plt.show() 
+    fig.tight_layout() 
+    fig.savefig('docs/freight_ratio.png', bbox_inches='tight', dpi=150)
+    return fig 
 
 def plot_delivery_vs_review(master_table):
     summary = delivery_vs_reviews(master_table)
@@ -54,9 +57,9 @@ def plot_delivery_vs_review(master_table):
     ax.set_xlabel("Average Review Score")
     ax.set_ylabel("Delivery Status")
 
-    plt.tight_layout()
-    plt.savefig('docs/delivery_vs_review.png', bbox_inches='tight', dpi=150)
-    plt.show()
+    fig.tight_layout()
+    fig.savefig('docs/delivery_vs_review.png', bbox_inches='tight', dpi=150)
+    return fig 
 
 def plot_low_reviews_cat(product_table): 
     summary = low_review_categories(product_table)
@@ -77,6 +80,6 @@ def plot_low_reviews_cat(product_table):
     ax.set_xlim(3.0, 4.2) #zoom into speicfic range
 
 
-    plt.tight_layout()
-    plt.savefig('docs/low_review_categories.png', bbox_inches='tight', dpi=150)
-    plt.show()
+    fig.tight_layout()
+    fig.savefig('docs/low_review_categories.png', bbox_inches='tight', dpi=150)
+    return fig

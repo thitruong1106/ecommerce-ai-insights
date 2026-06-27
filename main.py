@@ -10,6 +10,7 @@ from src.ai_insights import generate_insights, format_analysis_for_ai
 
 master_table = build_master_table(data)
 product_table = build_product_table(data)
+print(master_table.columns.tolist())
 print(product_table.shape)
 print(product_table.columns.tolist())
 print(revenue_by_category(product_table))
